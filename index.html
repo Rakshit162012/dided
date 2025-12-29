@@ -654,7 +654,7 @@
       color: var(--text-muted);
     }
 
-    /* ---------- NAME GATE / WELCOME BAR ---------- */
+    /* ---------- BARRE D’ACCUEIL / MODALE ---------- */
     .welcome-bar {
       display: flex;
       align-items: center;
@@ -694,7 +694,7 @@
     .name-gate__content {
       position: relative;
       z-index: 1;
-      max-width: 360px;
+      max-width: 380px;
       width: 90%;
       background: #0b1b3b;
       color: #f9fafb;
@@ -705,20 +705,32 @@
 
     .name-gate__label {
       display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.35rem;
+      margin-top: 0.7rem;
+      margin-bottom: 0.25rem;
       font-weight: 600;
+      font-size: 0.9rem;
     }
 
-    #visitor-name {
+    .name-gate__row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .name-gate__row > div {
+      flex: 1;
+    }
+
+    .name-gate__input,
+    .name-gate__select {
       width: 100%;
-      padding: 0.5rem 0.6rem;
+      padding: 0.45rem 0.6rem;
       border-radius: 6px;
       border: 1px solid #cbd5f5;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
-    #visitor-name:focus {
+    .name-gate__input:focus,
+    .name-gate__select:focus {
       outline: 2px solid #ffb400;
       outline-offset: 2px;
     }
@@ -727,7 +739,7 @@
       min-height: 1.1em;
       margin-top: 0.25rem;
       color: #fed7d7;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
 
     .name-gate__submit {
@@ -740,14 +752,15 @@
       color: #0b1b3b;
       font-weight: 700;
       cursor: pointer;
+      font-size: 0.9rem;
     }
 
     .name-gate__submit:hover {
       background: #ffd260;
     }
 
-    .name-gate__cancel {
-      margin-top: 0.6rem;
+    .name-gate__secondary {
+      margin-top: 0.5rem;
       width: 100%;
       padding: 0.45rem 0.8rem;
       border-radius: 999px;
@@ -755,7 +768,23 @@
       background: transparent;
       color: #e5e7eb;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+    }
+
+    .name-gate__toggle {
+      margin-top: 0.6rem;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    .name-gate__toggle button {
+      border: none;
+      background: none;
+      color: #ffb400;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.82rem;
+      padding: 0;
     }
 
     /* ---------- BREVET BLANC PAGES ---------- */
@@ -818,6 +847,80 @@
       color: var(--text-muted);
       margin-bottom: 0.4rem;
     }
+
+    /* ---------- CLASSEMENT / XP PAGE ---------- */
+    .xp-summary {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 1.1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      margin-top: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .xp-summary p {
+      margin: 0.1rem 0;
+    }
+
+    .ranking-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 780px) {
+      .ranking-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .ranking-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 1.1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+    }
+
+    .ranking-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .ranking-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    table.ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    table.ranking-table th,
+    table.ranking-table td {
+      padding: 0.3rem 0.35rem;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    table.ranking-table th {
+      font-weight: 600;
+      background: #f9fafb;
+    }
+
+    table.ranking-table tr.highlight {
+      background: #fef3c7;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 <body>
@@ -834,84 +937,118 @@
           <a href="#brevet-blanc" data-page="brevet-blanc">Brevet Blanc</a>
           <a href="#outils" data-page="outils">Outils</a>
           <a href="#agenda" data-page="agenda">Agenda & Suivi</a>
+          <a href="#classement" data-page="classement">Classement / XP</a>
         </div>
       </nav>
 
       <div id="welcome-bar" class="welcome-bar" aria-live="polite">
         <span id="welcome-message"></span>
-        <button id="change-name-btn" type="button" class="welcome-link">
-          Change name
+        <button id="change-user-btn" type="button" class="welcome-link">
+          Changer d’utilisateur
+        </button>
+        <button id="logout-btn" type="button" class="welcome-link">
+          Se déconnecter
         </button>
       </div>
     </div>
   </header>
 
+  <!-- MODALE D’AUTHENTIFICATION : INSCRIPTION + CONNEXION -->
   <div
-    id="name-gate"
+    id="auth-gate"
     class="name-gate name-gate--hidden"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="name-gate-title"
+    aria-labelledby="auth-gate-title"
   >
     <div class="name-gate__backdrop"></div>
     <div class="name-gate__content" role="document">
-      <h2 id="name-gate-title">Welcome to Master 3ème</h2>
-      <p id="name-gate-desc">
-        Please tell us your first name so we can personalize your experience.
+      <h2 id="auth-gate-title">Bienvenue sur Master 3ème</h2>
+      <p id="auth-gate-desc">
+        Crée ton compte ou connecte-toi pour sauvegarder ta progression.
       </p>
 
-      <form id="name-gate-form" novalidate>
-        <label for="visitor-name" class="name-gate__label">
-          Your name
-        </label>
-        <input
-          id="visitor-name"
-          name="visitorName"
-          type="text"
-          autocomplete="name"
+      <form id="auth-form" novalidate>
+        <input type="hidden" id="auth-mode" value="signup" />
+
+        <div class="name-gate__row">
+          <div>
+            <label for="first-name" class="name-gate__label">Prénom</label>
+            <input
+              id="first-name"
+              name="firstName"
+              type="text"
+              class="name-gate__input"
+              autocomplete="given-name"
+              required
+              minlength="2"
+              maxlength="50"
+            />
+          </div>
+          <div>
+            <label for="last-name" class="name-gate__label">Nom</label>
+            <input
+              id="last-name"
+              name="lastName"
+              type="text"
+              class="name-gate__input"
+              autocomplete="family-name"
+              required
+              minlength="2"
+              maxlength="50"
+            />
+          </div>
+        </div>
+
+        <label for="class-name" class="name-gate__label">Classe</label>
+        <select
+          id="class-name"
+          name="className"
+          class="name-gate__select"
           required
-          minlength="2"
+        >
+          <option value="">Choisis ta classe</option>
+          <option value="3º1">3º1</option>
+          <option value="3º2">3º2</option>
+          <option value="3º3">3º3</option>
+          <option value="3º4">3º4</option>
+          <option value="3º5">3º5</option>
+        </select>
+
+        <label for="password" class="name-gate__label">Mot de passe</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          class="name-gate__input"
+          autocomplete="new-password"
+          required
+          minlength="4"
           maxlength="50"
-          aria-describedby="name-error"
         />
-        <p
-          id="name-error"
-          class="name-gate__error"
-          role="alert"
-          aria-live="assertive"
-        ></p>
 
-        <button type="submit" class="name-gate__submit">
-          Continue
+        <p id="auth-error" class="name-gate__error" role="alert" aria-live="assertive"></p>
+
+        <button type="submit" class="name-gate__submit" id="auth-submit-btn">
+          Créer mon compte
         </button>
-      </form>
 
-      <button
-        type="button"
-        id="name-gate-cancel"
-        class="name-gate__cancel"
-      >
-        Cancel
-      </button>
+        <button type="button" id="auth-cancel" class="name-gate__secondary">
+          Continuer sans sauvegarder
+        </button>
+
+        <p class="name-gate__toggle">
+          <span id="auth-toggle-text">Tu as déjà un compte ?</span>
+          <button type="button" id="auth-toggle-btn">Se connecter</button>
+        </p>
+      </form>
     </div>
   </div>
 
   <noscript>
     <main>
-      <h1>Welcome</h1>
-      <p>Please enter your name to continue.</p>
-      <form action="/name" method="post">
-        <label for="visitor-name-nojs">Your name</label>
-        <input
-          id="visitor-name-nojs"
-          name="visitorName"
-          type="text"
-          required
-          minlength="2"
-          maxlength="50"
-        />
-        <button type="submit">Continue</button>
-      </form>
+      <h1>Bienvenue</h1>
+      <p>Active JavaScript pour utiliser ce site.</p>
     </main>
   </noscript>
 
@@ -1013,1124 +1150,43 @@
       </div>
     </section>
 
-    <!-- RESSOURCES INDEX -->
-    <section id="ressources" class="page">
-      <h2 class="section-title">Ressources par matière</h2>
+    <!-- ICI tu gardes toutes tes sections existantes : RESSOURCES, BREVET BLANC, OUTILS, AGENDA, etc. -->
+    <!-- (contenu identique à ton dernier fichier, non répété ici pour gagner de la place) -->
+
+    <!-- CLASSEMENT / XP PAGE -->
+    <section id="classement" class="page">
+      <h2 class="section-title">Classement & XP</h2>
       <p class="section-subtitle">
-        Choisis une matière pour accéder aux fiches de révision, cartes mentales, quiz, exercices, évaluations d'entraînement et sites tout-en-un.
+        Visualise tes points d’XP et compare-toi aux autres élèves de ta classe et à tous les utilisateurs.
       </p>
 
-      <div class="subjects-grid">
-        <article class="subject-card">
-          <h3 class="subject-title">Mathématiques</h3>
-          <p class="subject-tag">Algèbre · Géométrie · Problèmes</p>
-          <p class="subject-desc">
-            Fiches, exercices et quiz pour maîtriser les bases en calcul, fonctions, statistiques et géométrie.
-          </p>
-          <a href="#ressources-maths" data-link="ressources-maths" class="subject-link">
-            Ouvrir la page Mathématiques →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">Français</h3>
-          <p class="subject-tag">Langue · Rédaction · Lecture</p>
-          <p class="subject-desc">
-            Méthodes de rédaction, fiches de grammaire, quiz et exercices pour l’épreuve écrite.
-          </p>
-          <a href="#ressources-francais" data-link="ressources-francais" class="subject-link">
-            Ouvrir la page Français →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">Histoire</h3>
-          <p class="subject-tag">Repères · Thèmes majeurs</p>
-          <p class="subject-desc">
-            Fiches chronologiques, cartes mentales et quiz sur les grands événements du programme.
-          </p>
-          <a href="#ressources-histoire" data-link="ressources-histoire" class="subject-link">
-            Ouvrir la page Histoire →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">Géographie</h3>
-          <p class="subject-tag">Cartes · Territoires</p>
-          <p class="subject-desc">
-            Cartes, schémas et exercices pour les espaces français et mondiaux.
-          </p>
-          <a href="#ressources-geographie" data-link="ressources-geographie" class="subject-link">
-            Ouvrir la page Géographie →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">EMC</h3>
-          <p class="subject-tag">Valeurs · Citoyenneté</p>
-          <p class="subject-desc">
-            Ressources sur les valeurs de la République, les droits, les devoirs et la vie démocratique.
-          </p>
-          <a href="#ressources-emc" data-link="ressources-emc" class="subject-link">
-            Ouvrir la page EMC →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">Physique - Chimie</h3>
-          <p class="subject-tag">Lois · Expériences</p>
-          <p class="subject-desc">
-            Lois physiques, modèles, réactions chimiques et évaluations d’entraînement.
-          </p>
-          <a href="#ressources-physique" data-link="ressources-physique" class="subject-link">
-            Ouvrir la page Physique - Chimie →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">Sciences de la Vie & de la Terre</h3>
-          <p class="subject-tag">Corps humain · Environnement</p>
-          <p class="subject-desc">
-            Fiches et activités sur le vivant, la planète, les risques et la santé.
-          </p>
-          <a href="#ressources-svt" data-link="ressources-svt" class="subject-link">
-            Ouvrir la page SVT →
-          </a>
-        </article>
-
-        <article class="subject-card">
-          <h3 class="subject-title">DNL Anglais (Mme Houdant)</h3>
-          <p class="subject-tag">CLIL · Anglais scientifique</p>
-          <p class="subject-desc">
-            Ressources bilingues, vocabulaire scientifique et activités pour la DNL Anglais.
-          </p>
-          <a href="#ressources-dnl" data-link="ressources-dnl" class="subject-link">
-            Ouvrir la page DNL Anglais →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : MATHS -->
-    <section id="ressources-maths" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">Mathématiques</h2>
-          </div>
-          <span class="pill">Brevet · Mathématiques</span>
-        </div>
-        <p class="subject-page-tagline">
-          Fiches de révision, exercices, flashcards et évaluations d’entraînement pour maîtriser nombres, fonctions, statistiques et géométrie.
+      <div class="xp-summary">
+        <p id="xp-current-user">Tu n’es pas connecté. Connecte-toi pour voir ton XP.</p>
+        <p class="muted">
+          Plus tard, l’XP sera gagné automatiquement en fonction du temps de révision et des quêtes que tu complètes.
         </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de Révision & Leçons</summary>
-            <div>
-              <p>Fiches synthétiques pour revoir les notions clés.</p>
-              <div class="resource-links">
-                <a href="#" class="resource-link"><span class="resource-pill">PDF</span>Nombres & calculs</a>
-                <a href="#" class="resource-link"><span class="resource-pill">PDF</span>Proportionnalité & pourcentages</a>
-                <a href="#" class="resource-link"><span class="resource-pill">PDF</span>Thalès, Pythagore, trigonométrie</a>
-              </div>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes Mentales</summary>
-            <div>
-              <p>Cartes mentales pour retenir formules et propriétés.</p>
-              <div class="resource-links">
-                <a href="#" class="resource-link"><span class="resource-pill">Mindmap</span>Théorème de Pythagore</a>
-                <a href="#" class="resource-link"><span class="resource-pill">Mindmap</span>Fonctions & graphiques</a>
-              </div>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Révise sous forme de cartes question / réponse.</p>
-              <div class="resource-links">
-                <a href="#" class="resource-link"><span class="resource-pill">Quizlet</span>Calcul littéral</a>
-                <a href="#" class="resource-link"><span class="resource-pill">Flashcards</span>Vocabulaire mathématique</a>
-              </div>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz chronométrés pour t’entraîner comme au Brevet.</p>
-              <div class="resource-links">
-                <a href="#" class="resource-link"><span class="resource-pill">Quiz</span>Fractions & pourcentages</a>
-                <a href="#" class="resource-link"><span class="resource-pill">Quiz</span>Statistiques</a>
-              </div>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos d’explication et corrections guidées d’exercices types.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales (chapitres)</summary>
-            <div>
-              <p>Organisation visuelle du programme de Mathématiques de 3ᵉ.</p>
-            </div>
-          </details>
-        </div>
       </div>
-    </section>
 
-    <!-- RESSOURCES : FRANCAIS -->
-    <section id="ressources-francais" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">Français</h2>
-          </div>
-          <span class="pill">Brevet · Français</span>
-        </div>
-        <p class="subject-page-tagline">
-          Fiches, leçons et entraînements pour la langue, la compréhension et la rédaction au Brevet.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches pour revoir grammaire, conjugaison et analyse de texte.</p>
-              <div class="resource-links">
-                <a href="#" class="resource-link"><span class="resource-pill">Fiche</span>Classes grammaticales</a>
-                <a href="#" class="resource-link"><span class="resource-pill">Fiche</span>Figures de style</a>
-              </div>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Cours complets sur la rédaction, l’argumentation et la lecture analytique.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes pour mémoriser vocabulaire, conjugaisons et notions de langue.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz pour t’entraîner sur l’orthographe, la conjugaison et la compréhension.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos expliquant la méthode pour réussir la rédaction et la compréhension.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales sur les genres littéraires, les types de textes et les temps de la narration.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : HISTOIRE -->
-    <section id="ressources-histoire" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">Histoire</h2>
-          </div>
-          <span class="pill">Brevet · Histoire</span>
-        </div>
-        <p class="subject-page-tagline">
-          Repères, thèmes majeurs et entraînements pour les épreuves d’Histoire au Brevet.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches sur les grandes périodes et événements du programme.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Leçons complètes pour approfondir chaque thème historique important.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes pour mémoriser dates, personnages et notions clés.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz pour vérifier tes repères et tes connaissances historiques.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos sur les grandes périodes et les événements clés.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales pour organiser les périodes, les causes et les conséquences.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : GEOGRAPHIE -->
-    <section id="ressources-geographie" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">Géographie</h2>
-          </div>
-          <span class="pill">Brevet · Géographie</span>
-        </div>
-        <p class="subject-page-tagline">
-          Cartes, schémas et notions pour réussir les épreuves de Géographie.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches sur les espaces, les territoires et les enjeux géographiques.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Leçons complètes sur les études de cas et les thèmes du programme.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes pour mémoriser vocabulaire et repères géographiques.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz sur les cartes, les paysages et les grands repères.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos explicatives sur les différents espaces étudiés.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales pour relier les notions de développement, d’urbanisation et de mondialisation.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : EMC -->
-    <section id="ressources-emc" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">EMC</h2>
-          </div>
-          <span class="pill">Brevet · EMC</span>
-        </div>
-        <p class="subject-page-tagline">
-          Valeurs, droits, devoirs et citoyenneté : toutes les ressources pour l’EMC.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches sur les valeurs de la République, les droits et les libertés.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Leçons sur les institutions et la vie démocratique.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes pour mémoriser vocabulaire et notions d’EMC.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz pour vérifier ta compréhension des règles et des principes.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos expliquant les institutions et la citoyenneté.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales organisant les notions de valeurs, droits et devoirs.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : PHYSIQUE-CHIMIE -->
-    <section id="ressources-physique" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">Physique - Chimie</h2>
-          </div>
-          <span class="pill">Brevet · Physique-Chimie</span>
-        </div>
-        <p class="subject-page-tagline">
-          Lois, modèles et expériences pour l’épreuve de Physique-Chimie.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches sur l’électricité, l’énergie, la matière et les transformations.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Cours complets avec exemples et expériences.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes pour mémoriser symboles, unités et formules.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz pour t’entraîner avant les évaluations.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos d’expériences et de correction d’exercices.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales reliant phénomènes, lois et grandeurs physiques.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : SVT -->
-    <section id="ressources-svt" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">Sciences de la Vie & de la Terre</h2>
-          </div>
-          <span class="pill">Brevet · SVT</span>
-        </div>
-        <p class="subject-page-tagline">
-          Corps humain, planète et environnement : toutes les ressources pour la SVT.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches sur l’organisation du vivant, la reproduction, la santé et les risques.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Leçons complètes avec schémas et expériences.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes pour mémoriser vocabulaire scientifique et définitions.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz sur les grands thèmes de SVT.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos expliquant les chapitres clés de SVT.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales reliant notions, expériences et vocabulaire.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESSOURCES : DNL ANGLAIS -->
-    <section id="ressources-dnl" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
-            <h2 class="subject-page-title">DNL Anglais (Mme Houdant)</h2>
-          </div>
-          <span class="pill">DNL · Anglais</span>
-        </div>
-        <p class="subject-page-tagline">
-          Ressources bilingues pour travailler les notions scientifiques en anglais.
-        </p>
-
-        <div class="resource-grid">
-          <details>
-            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
-            <div>
-              <p>Fiches de vocabulaire scientifique anglais/français.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-            <div>
-              <p>Leçons sur les notions scientifiques abordées en DNL.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
-            <div>
-              <p>Cartes bilingues pour mémoriser le lexique spécialisé.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
-            <div>
-              <p>Quiz en anglais sur le vocabulaire et les notions vues en DNL.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
-            <div>
-              <p>Vidéos en anglais expliquant des notions scientifiques simples.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-            <div>
-              <p>Cartes mentales bilingues reliant vocabulaire et concepts.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- BREVET BLANC INDEX -->
-    <section id="brevet-blanc" class="page">
-      <h2 class="section-title">Brevet Blanc</h2>
-      <p class="section-subtitle">
-        Prépare-toi spécifiquement pour les Brevets blancs : ressources ciblées, sujets d’entraînement et corrections détaillées pour chaque épreuve.
-      </p>
-
-      <div class="bb-grid">
-        <article class="bb-card">
-          <h3 class="bb-card-title">Français</h3>
-          <p class="bb-card-tag">Compréhension · Dictée · Rédaction</p>
-          <p class="subject-desc">
-            Entraîne-toi sur des sujets complets de Brevet blanc en Français, avec ressources et corrections.
+      <div class="ranking-grid">
+        <article class="ranking-card">
+          <h3 class="ranking-title">Classement dans ta classe</h3>
+          <p class="ranking-note">
+            Classement des élèves de ta classe (3º1, 3º2, 3º3, 3º4 ou 3º5) selon l’XP total.
           </p>
-          <a href="#bb-francais" data-link="bb-francais" class="bb-card-link">
-            Ouvrir la page Français (Brevet blanc) →
-          </a>
+          <div id="class-ranking-container">
+            <p class="muted">Connecte-toi pour voir le classement de ta classe.</p>
+          </div>
         </article>
 
-        <article class="bb-card">
-          <h3 class="bb-card-title">Mathématiques</h3>
-          <p class="bb-card-tag">Problèmes · QCM · Calculs</p>
-          <p class="subject-desc">
-            Sujets de Brevet blanc en Mathématiques, corrigés et fiches ciblées pour chaque notion.
+        <article class="ranking-card">
+          <h3 class="ranking-title">Classement global (tous les utilisateurs)</h3>
+          <p class="ranking-note">
+            Classement de tous les comptes créés sur cette plateforme, selon l’XP total.
           </p>
-          <a href="#bb-maths" data-link="bb-maths" class="bb-card-link">
-            Ouvrir la page Mathématiques (Brevet blanc) →
-          </a>
+          <div id="global-ranking-container">
+            <p class="muted">Connecte-toi ou crée un compte pour apparaître dans le classement global.</p>
+          </div>
         </article>
-
-        <article class="bb-card">
-          <h3 class="bb-card-title">Histoire-Géographie / EMC</h3>
-          <p class="bb-card-tag">Étude de docs · Rédaction</p>
-          <p class="subject-desc">
-            Entraînements complets sur les épreuves d’Histoire-Géographie et EMC du Brevet blanc.
-          </p>
-          <a href="#bb-histgeo-emc" data-link="bb-histgeo-emc" class="bb-card-link">
-            Ouvrir la page Histoire-Géo / EMC (Brevet blanc) →
-          </a>
-        </article>
-
-        <article class="bb-card">
-          <h3 class="bb-card-title">Sciences</h3>
-          <p class="bb-card-tag">SVT · Physique-Chimie · Techno</p>
-          <p class="subject-desc">
-            Ressources et sujets d’entraînement en Sciences pour l’épreuve de Brevet blanc.
-          </p>
-          <a href="#bb-sciences" data-link="bb-sciences" class="bb-card-link">
-            Ouvrir la page Sciences (Brevet blanc) →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <!-- BREVET BLANC : FRANCAIS -->
-    <section id="bb-francais" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
-            <h2 class="subject-page-title">Brevet Blanc – Français</h2>
-          </div>
-          <span class="pill">Français · Brevet blanc</span>
-        </div>
-        <p class="subject-page-tagline">
-          Prépare les épreuves de compréhension, dictée et rédaction avec des ressources ciblées et des sujets complets de Brevet blanc.
-        </p>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Ressources</h3>
-          <p class="bb-section-subtitle">
-            Utilise ces ressources pour maîtriser méthodologie et notions avant de passer aux sujets d’entraînement.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
-              <div>
-                <p>Rappels rapides sur les points essentiels de l’épreuve (lecture, langue, rédaction).</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-              <div>
-                <p>Cours complets pour revoir la rédaction, l’argumentation et la lecture analytique.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🎥</span>Videos</summary>
-              <div>
-                <p>Vidéos expliquant la méthode pour la compréhension et la rédaction, avec exemples commentés.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
-              <div>
-                <p>Flashcards pour réviser vocabulaire, figures de style et notions de grammaire.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
-              <div>
-                <p>Quiz chronométrés pour t’entraîner sur la langue et la compréhension comme au Brevet.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-              <div>
-                <p>Cartes mentales pour visualiser les étapes de la rédaction et les types de questions de l’épreuve.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
-          <p class="bb-section-subtitle">
-            Entraîne-toi avec des sujets complets de Brevet blanc en Français.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
-              <div>
-                <p>Des sujets au format officiel avec texte, questions, dictée et rédaction.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
-          <p class="bb-section-subtitle">
-            Vérifie tes réponses et comprends les attentes du correcteur.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
-              <div>
-                <p>Corrigés expliqués pour chaque partie : compréhension, réécriture, dictée et rédaction.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BREVET BLANC : MATHS -->
-    <section id="bb-maths" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
-            <h2 class="subject-page-title">Brevet Blanc – Mathématiques</h2>
-          </div>
-          <span class="pill">Mathématiques · Brevet blanc</span>
-        </div>
-        <p class="subject-page-tagline">
-          Entraîne-toi sur des sujets complets de Mathématiques, avec fiches, exercices ciblés et corrections détaillées.
-        </p>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Ressources</h3>
-          <p class="bb-section-subtitle">
-            Révise les notions clés que l’on retrouve dans les sujets de Brevet blanc.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
-              <div>
-                <p>Rappels rapides sur les chapitres fréquents en Brevet blanc (fonctions, statistiques, géométrie, etc.).</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-              <div>
-                <p>Cours complets avec exemples pour revoir les techniques utilisées dans les sujets.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🎥</span>Videos</summary>
-              <div>
-                <p>Vidéos d’explications et de corrections de sujets de Brevet blanc en Mathématiques.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
-              <div>
-                <p>Flashcards pour mémoriser formules, définitions et méthodes de résolution.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
-              <div>
-                <p>Quiz rapides sur calcul littéral, équations, proportionnalité, probabilités, etc.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-              <div>
-                <p>Cartes mentales des grandes notions : fonctions, probabilités, géométrie.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
-          <p class="bb-section-subtitle">
-            Sujets complets de Mathématiques au format Brevet.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
-              <div>
-                <p>Problèmes, QCM et exercices de raisonnement au format officiel.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
-          <p class="bb-section-subtitle">
-            Corrigés commentés pour comprendre chaque étape de la solution.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
-              <div>
-                <p>Corrigés structurés, avec rappel de la méthode utilisée dans chaque exercice.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BREVET BLANC : HISTOIRE-GÉO / EMC -->
-    <section id="bb-histgeo-emc" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
-            <h2 class="subject-page-title">Brevet Blanc – Histoire-Géographie / EMC</h2>
-          </div>
-          <span class="pill">Histoire-Géo / EMC · Brevet blanc</span>
-        </div>
-        <p class="subject-page-tagline">
-          Travaille sur des sujets d’Histoire-Géographie et EMC complets, avec ressources et corrigés pour l’épreuve de Brevet blanc.
-        </p>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Ressources</h3>
-          <p class="bb-section-subtitle">
-            Revois les repères, les notions de programme et la méthode pour l’étude de documents et les rédactions.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
-              <div>
-                <p>Fiches sur les repères historiques, les grandes périodes, les études de cas et les notions d’EMC.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-              <div>
-                <p>Leçons complètes sur les thèmes majeurs du programme d’Histoire-Géographie et d’EMC.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🎥</span>Videos</summary>
-              <div>
-                <p>Vidéos explicatives sur les chapitres clés et la méthode de la rédaction en Histoire-Géo/EMC.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
-              <div>
-                <p>Flashcards pour revoir dates, lieux, personnages, concepts d’EMC et vocabulaire géographique.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
-              <div>
-                <p>Quiz pour vérifier tes repères historiques et géographiques, ainsi que les notions d’EMC.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-              <div>
-                <p>Cartes mentales pour organiser les grandes périodes, les thèmes et les notions de citoyenneté.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
-          <p class="bb-section-subtitle">
-            Sujets complets avec étude de documents, croquis et questions d’EMC.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
-              <div>
-                <p>Sujets avec documents, questions et développement construit.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
-          <p class="bb-section-subtitle">
-            Corrigés commentés, exemples de développements construits et réponses attendues.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
-              <div>
-                <p>Corrigés pour l’étude de documents, le croquis et l’EMC.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BREVET BLANC : SCIENCES -->
-    <section id="bb-sciences" class="page">
-      <div class="subject-page">
-        <div class="subject-page-header">
-          <div>
-            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
-            <h2 class="subject-page-title">Brevet Blanc – Sciences</h2>
-          </div>
-          <span class="pill">Sciences · Brevet blanc</span>
-        </div>
-        <p class="subject-page-tagline">
-          Prépare l’épreuve de Sciences (SVT, Physique-Chimie, Technologie) avec des ressources ciblées et des sujets de Brevet blanc.
-        </p>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Ressources</h3>
-          <p class="bb-section-subtitle">
-            Revois les notions scientifiques qui reviennent le plus souvent dans les sujets de Brevet blanc.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
-              <div>
-                <p>Fiches synthétiques couvrant SVT, Physique-Chimie et Technologie.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
-              <div>
-                <p>Cours plus complets avec expériences, schémas et démarches scientifiques.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🎥</span>Videos</summary>
-              <div>
-                <p>Vidéos d’expériences, d’explications de sujets et de corrections guidées.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
-              <div>
-                <p>Flashcards pour mémoriser vocabulaire scientifique, unités, symboles et définitions.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
-              <div>
-                <p>Quiz pour tester tes connaissances en SVT, Physique-Chimie et Technologie avant l’épreuve.</p>
-              </div>
-            </details>
-
-            <details>
-              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
-              <div>
-                <p>Cartes mentales reliant expériences, notions et vocabulaire dans les trois disciplines.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
-          <p class="bb-section-subtitle">
-            Sujets de Sciences complets avec documents et questions.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
-              <div>
-                <p>Sujets mêlant SVT, Physique-Chimie et Technologie.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-
-        <div class="bb-section">
-          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
-          <p class="bb-section-subtitle">
-            Corrigés détaillés pour chaque partie : SVT, Physique-Chimie, Technologie.
-          </p>
-          <div class="resource-grid">
-            <details>
-              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
-              <div>
-                <p>Explications des démarches scientifiques attendues au Brevet.</p>
-              </div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- OUTILS -->
-    <section id="outils" class="page">
-      <h2 class="section-title">Outils</h2>
-      <p class="section-subtitle">
-        Utilise ces outils pour simuler tes points au Brevet et suivre ta moyenne générale.
-      </p>
-
-      <div class="tools-grid">
-        <article class="tool-card">
-          <div>
-            <h3 class="tool-title">
-              📊 Calculateur points Brevet
-              <span class="tool-badge">Embed prêt</span>
-            </h3>
-            <p class="tool-text">
-              Simule ton total de points au DNB à partir de tes notes de contrôle continu et des épreuves finales.
-            </p>
-          </div>
-          <div class="tool-placeholder">
-            <iframe
-              title="Calculateur points Brevet"
-              width="100%"
-              height="400"
-              src="[Placeholder URL d'intégration ici]"
-            ></iframe>
-          </div>
-          <p class="tool-note">
-            Remplace l’URL par le lien d’intégration de ton tableau Google Sheets (mode public ou restreint).
-          </p>
-        </article>
-
-        <article class="tool-card">
-          <div>
-            <h3 class="tool-title">
-              📈 Calculateur moyenne générale
-              <span class="tool-badge">Embed prêt</span>
-            </h3>
-            <p class="tool-text">
-              Calcule ta moyenne générale sur l’année et observe ta progression au fil des trimestres.
-            </p>
-          </div>
-          <div class="tool-placeholder">
-            <iframe
-              title="Calculateur moyenne générale"
-              width="100%"
-              height="400"
-              src="[Placeholder URL d'intégration ici]"
-            ></iframe>
-          </div>
-          <p class="tool-note">
-            Colle ici l’URL d’intégration de ton tableau de suivi des moyennes (Google Sheets ou autre outil).
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- AGENDA & SUIVI -->
-    <section id="agenda" class="page">
-      <h2 class="section-title">Agenda & Suivi</h2>
-      <p class="section-subtitle">
-        Organise ton année avec un calendrier clair pour tes contrôles, oraux blancs et périodes de révision.
-      </p>
-
-      <div class="calendar-block">
-        <div class="calendar-header">
-          <div>
-            <p class="calendar-title">Calendrier de révisions & contrôles</p>
-            <p class="calendar-help">
-              Ajoute les dates des contrôles, oraux blancs et périodes de révisions intensives.
-            </p>
-          </div>
-          <span class="pill">Google Calendar prêt</span>
-        </div>
-        <div class="calendar-placeholder">
-          <iframe
-            title="Calendrier de révisions"
-            width="100%"
-            height="600"
-            src="[Placeholder URL Google Calendar ici]"
-          ></iframe>
-        </div>
       </div>
     </section>
   </main>
@@ -2155,8 +1211,8 @@
         link.classList.toggle(
           'active-link',
           page === id ||
-            (id.startsWith('ressources-') && page === 'ressources') ||
-            (id.startsWith('bb-') && page === 'brevet-blanc')
+            (id && id.startsWith('ressources-') && page === 'ressources') ||
+            (id && id.startsWith('bb-') && page === 'brevet-blanc')
         );
       });
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -2172,6 +1228,9 @@
     function handleHashChange() {
       const pageId = getHashPage();
       showPage(pageId);
+      if (pageId === 'classement') {
+        refreshRankingPage();
+      }
     }
 
     window.addEventListener('hashchange', handleHashChange);
@@ -2206,13 +1265,10 @@
       });
     });
 
-    // ---------- NAME GATE ----------
-    const NAME_KEY = 'visitorName';
-    const NAME_META_KEY = 'visitorNameMeta';
-    const NAME_COOKIE = 'visitorName';
-    const NAME_MAX_AGE_DAYS = 30;
-    const MIN_NAME_LEN = 2;
-    const MAX_NAME_LEN = 50;
+    // ---------- AUTH SIMPLE CÔTÉ FRONT ----------
+    const USERS_KEY = 'm3_users';
+    const CURRENT_USER_KEY = 'm3_current_user_id';
+    const DEVICE_LAST_USER_KEY = 'm3_last_user_id';
 
     function supportsLocalStorage() {
       try {
@@ -2227,121 +1283,148 @@
 
     const hasLocal = supportsLocalStorage();
 
-    function setCookie(name, value, days) {
-      const date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      document.cookie =
-        name +
-        '=' +
-        encodeURIComponent(value) +
-        ';expires=' +
-        date.toUTCString() +
-        ';path=/';
-    }
-
-    function getCookie(name) {
-      const nameEQ = name + '=';
-      const parts = document.cookie.split(';');
-      for (let c of parts) {
-        c = c.trim();
-        if (c.indexOf(nameEQ) === 0) {
-          return decodeURIComponent(c.substring(nameEQ.length));
-        }
+    function loadUsers() {
+      if (!hasLocal) return [];
+      const raw = localStorage.getItem(USERS_KEY);
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
       }
-      return null;
     }
 
-    function deleteCookie(name) {
-      document.cookie =
-        name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
+    function saveUsers(users) {
+      if (!hasLocal) return;
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
     }
 
-    function saveName(name) {
-      const meta = {
-        savedAt: Date.now(),
-        expiresAt:
-          Date.now() + NAME_MAX_AGE_DAYS * 24 * 60 * 60 * 1000,
-      };
-      if (hasLocal) {
-        localStorage.setItem(NAME_KEY, name);
-        localStorage.setItem(NAME_META_KEY, JSON.stringify(meta));
+    function genUserId(firstName, lastName) {
+      const base = (firstName + '_' + lastName + '_' + Date.now()).toLowerCase();
+      return base.replace(/[^a-z0-9_]/g, '');
+    }
+
+    function hashPassword(pw) {
+      let hash = 0;
+      for (let i = 0; i < pw.length; i++) {
+        hash = (hash << 5) - hash + pw.charCodeAt(i);
+        hash |= 0;
+      }
+      return String(hash);
+    }
+
+    function findUser(firstName, lastName) {
+      const users = loadUsers();
+      return users.find(
+        u =>
+          u.firstName.toLowerCase() === firstName.toLowerCase().trim() &&
+          u.lastName.toLowerCase() === lastName.toLowerCase().trim()
+      );
+    }
+
+    function ensureUserDefaults(user) {
+      if (typeof user.xp !== 'number') {
+        user.xp = 0;
+      }
+      if (!user.history || typeof user.history !== 'object') {
+        user.history = {
+          lastVisit: Date.now(),
+          visits: []
+        };
+      }
+      return user;
+    }
+
+    function upsertUser(user) {
+      user = ensureUserDefaults(user);
+      const users = loadUsers();
+      const idx = users.findIndex(u => u.id === user.id);
+      if (idx >= 0) {
+        users[idx] = user;
       } else {
-        setCookie(NAME_KEY, name, NAME_MAX_AGE_DAYS);
+        users.push(user);
       }
+      saveUsers(users);
     }
 
-    function clearName() {
-      if (hasLocal) {
-        localStorage.removeItem(NAME_KEY);
-        localStorage.removeItem(NAME_META_KEY);
-      }
-      deleteCookie(NAME_KEY);
+    function setCurrentUserId(id) {
+      if (!hasLocal) return;
+      localStorage.setItem(CURRENT_USER_KEY, id);
+      localStorage.setItem(DEVICE_LAST_USER_KEY, id);
     }
 
-    function loadName() {
-      let name = null;
-      if (hasLocal) {
-        name = localStorage.getItem(NAME_KEY);
-        const rawMeta = localStorage.getItem(NAME_META_KEY);
-        if (name && rawMeta) {
-          try {
-            const meta = JSON.parse(rawMeta);
-            if (meta.expiresAt && Date.now() > meta.expiresAt) {
-              clearName();
-              name = null;
-            }
-          } catch {
-            // ignore
-          }
-        }
-      } else {
-        name = getCookie(NAME_KEY);
-      }
-      if (!name) return null;
-      const trimmed = name.trim();
-      return validateName(trimmed) ? trimmed : null;
+    function getCurrentUserId() {
+      if (!hasLocal) return null;
+      return localStorage.getItem(CURRENT_USER_KEY);
     }
 
-    function validateName(value) {
-      const name = value.trim();
-      if (name.length < MIN_NAME_LEN || name.length > MAX_NAME_LEN) {
-        return false;
-      }
-      if (/^[\x00-\x1F\x7F]+$/.test(name)) {
-        return false;
-      }
-      return true;
+    function getDeviceLastUserId() {
+      if (!hasLocal) return null;
+      return localStorage.getItem(DEVICE_LAST_USER_KEY);
     }
 
-    function getValidationMessage(value) {
-      const name = value.trim();
-      if (!name) {
-        return 'Please enter your name.';
-      }
-      if (name.length < MIN_NAME_LEN) {
-        return 'Name must be at least ' + MIN_NAME_LEN + ' characters.';
-      }
-      if (name.length > MAX_NAME_LEN) {
-        return 'Name must be at most ' + MAX_NAME_LEN + ' characters.';
-      }
-      if (/^[\x00-\x1F\x7F]+$/.test(name)) {
-        return 'Name cannot consist only of control characters.';
-      }
-      return '';
+    function clearCurrentUser() {
+      if (!hasLocal) return;
+      localStorage.removeItem(CURRENT_USER_KEY);
     }
 
-    const gate = document.getElementById('name-gate');
-    const gateForm = document.getElementById('name-gate-form');
-    const gateInput = document.getElementById('visitor-name');
-    const gateError = document.getElementById('name-error');
-    const gateCancel = document.getElementById('name-gate-cancel');
+    function getCurrentUser() {
+      const id = getCurrentUserId();
+      if (!id) return null;
+      const users = loadUsers();
+      const user = users.find(u => u.id === id) || null;
+      return user ? ensureUserDefaults(user) : null;
+    }
+
+    function getUserHistory(user) {
+      if (!user.history || typeof user.history !== 'object') {
+        user.history = {
+          lastVisit: Date.now(),
+          visits: []
+        };
+      }
+      return user.history;
+    }
+
+    function updateUserHistoryOnVisit(user) {
+      const history = getUserHistory(user);
+      history.lastVisit = Date.now();
+      history.visits.push({
+        date: Date.now(),
+        page: getHashPage(),
+      });
+      user.history = history;
+      upsertUser(user);
+    }
+
     const welcomeMsg = document.getElementById('welcome-message');
-    const changeNameBtn = document.getElementById('change-name-btn');
+    const changeUserBtn = document.getElementById('change-user-btn');
+    const logoutBtn = document.getElementById('logout-btn');
 
-    function setWelcome(name) {
+    function setWelcome(user) {
       if (!welcomeMsg) return;
-      welcomeMsg.textContent = name ? 'Welcome, ' + name + '!' : '';
+      if (!user) {
+        welcomeMsg.textContent = '';
+        return;
+      }
+      welcomeMsg.textContent =
+        'Bienvenue, ' + user.firstName + ' ' + user.lastName + ' (' + user.className + ').';
     }
+
+    // ---------- LOGIQUE DE LA MODALE D’AUTH ----------
+    const authGate = document.getElementById('auth-gate');
+    const authForm = document.getElementById('auth-form');
+    const authModeInput = document.getElementById('auth-mode');
+    const firstNameInput = document.getElementById('first-name');
+    const lastNameInput = document.getElementById('last-name');
+    const classSelect = document.getElementById('class-name');
+    const passwordInput = document.getElementById('password');
+    const authError = document.getElementById('auth-error');
+    const authSubmitBtn = document.getElementById('auth-submit-btn');
+    const authCancelBtn = document.getElementById('auth-cancel');
+    const authToggleBtn = document.getElementById('auth-toggle-btn');
+    const authToggleText = document.getElementById('auth-toggle-text');
 
     function getFocusableElements(container) {
       return Array.from(
@@ -2351,19 +1434,29 @@
       );
     }
 
-    function openGate(options = {}) {
-      gate.classList.remove('name-gate--hidden');
-      const focusables = getFocusableElements(gate);
+    function openAuthGate(mode = 'signup') {
+      authModeInput.value = mode;
+      authError.textContent = '';
+      passwordInput.value = '';
+      if (mode === 'signup') {
+        authSubmitBtn.textContent = 'Créer mon compte';
+        passwordInput.setAttribute('autocomplete', 'new-password');
+        authToggleText.textContent = 'Tu as déjà un compte ?';
+        authToggleBtn.textContent = 'Se connecter';
+      } else {
+        authSubmitBtn.textContent = 'Se connecter';
+        passwordInput.setAttribute('autocomplete', 'current-password');
+        authToggleText.textContent = "Tu n'as pas encore de compte ?";
+        authToggleBtn.textContent = 'Créer un compte';
+      }
+
+      authGate.classList.remove('name-gate--hidden');
+
+      const focusables = getFocusableElements(authGate);
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
 
-      if (options.mode === 'change' && gateCancel) {
-        gateCancel.style.display = 'block';
-      } else if (gateCancel) {
-        gateCancel.style.display = 'none';
-      }
-
-      if (gateInput) gateInput.focus();
+      if (firstNameInput) firstNameInput.focus();
 
       function trap(e) {
         if (e.key === 'Tab') {
@@ -2374,68 +1467,261 @@
             e.preventDefault();
             first.focus();
           }
-        } else if (e.key === 'Escape' && options.mode === 'change') {
+        } else if (e.key === 'Escape') {
           e.preventDefault();
-          closeGate();
+          closeAuthGate();
         }
       }
 
-      gate.addEventListener('keydown', trap);
-      gate._cleanupTrap = () => gate.removeEventListener('keydown', trap);
+      authGate.addEventListener('keydown', trap);
+      authGate._cleanupTrap = () => authGate.removeEventListener('keydown', trap);
     }
 
-    function closeGate() {
-      if (gate._cleanupTrap) gate._cleanupTrap();
-      gate.classList.add('name-gate--hidden');
+    function closeAuthGate() {
+      if (authGate._cleanupTrap) authGate._cleanupTrap();
+      authGate.classList.add('name-gate--hidden');
     }
 
-    gateForm.addEventListener('submit', (e) => {
+    function validateAuthForm(mode) {
+      const fn = firstNameInput.value.trim();
+      const ln = lastNameInput.value.trim();
+      const cl = classSelect.value;
+      const pw = passwordInput.value;
+
+      if (!fn || fn.length < 2) {
+        return 'Merci de saisir un prénom valide.';
+      }
+      if (!ln || ln.length < 2) {
+        return 'Merci de saisir un nom valide.';
+      }
+      if (!cl) {
+        return 'Merci de choisir ta classe.';
+      }
+      if (!pw || pw.length < 4) {
+        return 'Le mot de passe doit contenir au moins 4 caractères.';
+      }
+
+      if (mode === 'signup') {
+        const existing = findUser(fn, ln);
+        if (existing) {
+          return 'Un compte avec ce prénom et ce nom existe déjà. Connecte-toi plutôt.';
+        }
+      } else if (mode === 'login') {
+        const existing = findUser(fn, ln);
+        if (!existing) {
+          return 'Aucun compte trouvé avec ce prénom et ce nom. Crée un compte.';
+        }
+        if (existing.passwordHash !== hashPassword(pw)) {
+          return 'Mot de passe incorrect.';
+        }
+      }
+      return '';
+    }
+
+    authForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const raw = gateInput.value || '';
-      const msg = getValidationMessage(raw);
-      if (msg) {
-        gateError.textContent = msg;
-        gateInput.setAttribute('aria-invalid', 'true');
-        gateInput.focus();
+      const mode = authModeInput.value || 'signup';
+      const errorMsg = validateAuthForm(mode);
+      if (errorMsg) {
+        authError.textContent = errorMsg;
         return;
       }
-      const clean = raw.trim();
-      gateError.textContent = '';
-      gateInput.removeAttribute('aria-invalid');
-      saveName(clean);
-      setWelcome(clean);
-      closeGate();
+      const fn = firstNameInput.value.trim();
+      const ln = lastNameInput.value.trim();
+      const cl = classSelect.value;
+      const pw = passwordInput.value;
+
+      if (mode === 'signup') {
+        const newUser = {
+          id: genUserId(fn, ln),
+          firstName: fn,
+          lastName: ln,
+          className: cl,
+          passwordHash: hashPassword(pw),
+          createdAt: Date.now(),
+          xp: 0,
+          history: {
+            lastVisit: Date.now(),
+            visits: []
+          }
+        };
+        upsertUser(newUser);
+        setCurrentUserId(newUser.id);
+        setWelcome(newUser);
+        closeAuthGate();
+        updateUserHistoryOnVisit(newUser);
+        if (getHashPage() === 'classement') {
+          refreshRankingPage();
+        }
+      } else {
+        const existing = findUser(fn, ln);
+        const user = ensureUserDefaults(existing);
+        setCurrentUserId(user.id);
+        setWelcome(user);
+        closeAuthGate();
+        updateUserHistoryOnVisit(user);
+        if (getHashPage() === 'classement') {
+          refreshRankingPage();
+        }
+      }
     });
 
-    gateInput.addEventListener('input', () => {
-      if (!gateError.textContent) return;
-      const msg = getValidationMessage(gateInput.value || '');
-      gateError.textContent = msg;
+    authToggleBtn.addEventListener('click', () => {
+      const mode = authModeInput.value === 'signup' ? 'login' : 'signup';
+      openAuthGate(mode);
     });
 
-    if (gateCancel) {
-      gateCancel.addEventListener('click', () => {
-        closeGate();
+    authCancelBtn.addEventListener('click', () => {
+      clearCurrentUser();
+      setWelcome(null);
+      closeAuthGate();
+      if (getHashPage() === 'classement') {
+        refreshRankingPage();
+      }
+    });
+
+    if (changeUserBtn) {
+      changeUserBtn.addEventListener('click', () => {
+        const currentUser = getCurrentUser();
+        if (currentUser) {
+          firstNameInput.value = currentUser.firstName;
+          lastNameInput.value = currentUser.lastName;
+          classSelect.value = currentUser.className || '';
+        }
+        openAuthGate('login');
       });
     }
 
-    if (changeNameBtn) {
-      changeNameBtn.addEventListener('click', () => {
-        const current = loadName();
-        if (current) gateInput.value = current;
-        openGate({ mode: 'change' });
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        clearCurrentUser();
+        setWelcome(null);
+        if (getHashPage() === 'classement') {
+          refreshRankingPage();
+        }
       });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const stored = loadName();
-      if (stored) {
-        setWelcome(stored);
-      } else {
-        openGate({ mode: 'first' });
+      if (!hasLocal) {
+        return;
       }
+      const current = getCurrentUser();
+      if (current) {
+        setWelcome(current);
+        updateUserHistoryOnVisit(current);
+        if (getHashPage() === 'classement') {
+          refreshRankingPage();
+        }
+        return;
+      }
+
+      const lastId = getDeviceLastUserId();
+      if (lastId) {
+        const users = loadUsers();
+        const user = users.find(u => u.id === lastId);
+        if (user) {
+          firstNameInput.value = user.firstName;
+          lastNameInput.value = user.lastName;
+          classSelect.value = user.className || '';
+        }
+      }
+      openAuthGate('signup');
     });
+
+    // ---------- CLASSEMENT / XP ----------
+    const xpCurrentUserEl = document.getElementById('xp-current-user');
+    const classRankingContainer = document.getElementById('class-ranking-container');
+    const globalRankingContainer = document.getElementById('global-ranking-container');
+
+    function buildRankingTable(users, currentUser) {
+      if (!users.length) {
+        const p = document.createElement('p');
+        p.className = 'muted';
+        p.textContent = 'Aucun utilisateur pour l’instant.';
+        return p;
+      }
+
+      const table = document.createElement('table');
+      table.className = 'ranking-table';
+
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      ['#', 'Nom', 'Classe', 'XP'].forEach(h => {
+        const th = document.createElement('th');
+        th.textContent = h;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      const tbody = document.createElement('tbody');
+      users.forEach((u, idx) => {
+        const tr = document.createElement('tr');
+        if (currentUser && u.id === currentUser.id) {
+          tr.classList.add('highlight');
+        }
+        const rankTd = document.createElement('td');
+        rankTd.textContent = String(idx + 1);
+        const nameTd = document.createElement('td');
+        nameTd.textContent = u.firstName + ' ' + u.lastName;
+        const classTd = document.createElement('td');
+        classTd.textContent = u.className || '-';
+        const xpTd = document.createElement('td');
+        xpTd.textContent = typeof u.xp === 'number' ? u.xp : 0;
+
+        tr.appendChild(rankTd);
+        tr.appendChild(nameTd);
+        tr.appendChild(classTd);
+        tr.appendChild(xpTd);
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      return table;
+    }
+
+    function refreshRankingPage() {
+      if (!xpCurrentUserEl || !classRankingContainer || !globalRankingContainer) return;
+
+      const currentUser = getCurrentUser();
+      const allUsers = loadUsers().map(ensureUserDefaults);
+
+      if (!currentUser) {
+        xpCurrentUserEl.textContent = 'Tu n’es pas connecté. Connecte-toi pour voir ton XP.';
+        classRankingContainer.innerHTML = '';
+        const pClass = document.createElement('p');
+        pClass.className = 'muted';
+        pClass.textContent = 'Connecte-toi pour voir le classement de ta classe.';
+        classRankingContainer.appendChild(pClass);
+
+        globalRankingContainer.innerHTML = '';
+        const pGlobal = document.createElement('p');
+        pGlobal.className = 'muted';
+        pGlobal.textContent = 'Connecte-toi ou crée un compte pour apparaître dans le classement global.';
+        globalRankingContainer.appendChild(pGlobal);
+        return;
+      }
+
+      const xp = typeof currentUser.xp === 'number' ? currentUser.xp : 0;
+      xpCurrentUserEl.textContent =
+        'Tu as actuellement ' + xp + ' XP.';
+
+      // Classement par classe
+      const sameClassUsers = allUsers
+        .filter(u => u.className === currentUser.className)
+        .sort((a, b) => (b.xp || 0) - (a.xp || 0));
+
+      classRankingContainer.innerHTML = '';
+      classRankingContainer.appendChild(buildRankingTable(sameClassUsers, currentUser));
+
+      // Classement global
+      const globalUsers = allUsers.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+      globalRankingContainer.innerHTML = '';
+      globalRankingContainer.appendChild(buildRankingTable(globalUsers, currentUser));
+    }
   </script>
 </body>
 </html>
+
 
