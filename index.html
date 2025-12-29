@@ -51,6 +51,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
     }
 
     .logo {
@@ -62,9 +63,10 @@
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem;
       align-items: center;
       font-size: 0.95rem;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -109,6 +111,13 @@
 
     .nav-toggle.open span:nth-child(3) {
       transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 900px) {
+      .nav-container {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
     }
 
     @media (max-width: 720px) {
@@ -292,8 +301,20 @@
     .feature-grid {
       margin-top: 2rem;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1.4rem;
+    }
+
+    @media (max-width: 960px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
     .feature-card {
@@ -340,19 +361,7 @@
       gap: 0.3rem;
     }
 
-    @media (max-width: 860px) {
-      .feature-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 640px) {
-      .feature-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* ---------- PAGE : RESSOURCES (INDEX) ---------- */
+    /* ---------- RESSOURCES INDEX ---------- */
     .subjects-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -402,7 +411,7 @@
       gap: 0.3rem;
     }
 
-    /* ---------- SOUS-PAGES DE MATIÈRES ---------- */
+    /* ---------- SOUS-PAGES DE MATIÈRES (RESSOURCES) ---------- */
     .subject-page {
       background: #ffffff;
       border-radius: var(--radius-md);
@@ -518,18 +527,12 @@
       color: #374151;
     }
 
-    /* ---------- PAGE : OUTILS & MÉTHODES ---------- */
+    /* ---------- PAGE : OUTILS ---------- */
     .tools-grid {
       margin-top: 1.2rem;
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.2rem;
-    }
-
-    @media (max-width: 960px) {
-      .tools-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
     }
 
     @media (max-width: 720px) {
@@ -584,32 +587,6 @@
       margin-top: 0.4rem;
     }
 
-    .method-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      margin-top: 0.3rem;
-    }
-
-    .method-btn {
-      padding: 0.45rem 0.7rem;
-      border-radius: 999px;
-      border: none;
-      background: #f3f4ff;
-      color: #111827;
-      font-size: 0.88rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: background 0.12s, transform 0.08s;
-    }
-
-    .method-btn:hover {
-      background: #e0e7ff;
-      transform: translateY(-1px);
-    }
-
     /* ---------- PAGE : AGENDA & SUIVI ---------- */
     .calendar-block {
       background: #ffffff;
@@ -638,8 +615,7 @@
       color: var(--text-muted);
     }
 
-    .calendar-placeholder,
-    .dashboard-placeholder {
+    .calendar-placeholder {
       border-radius: 12px;
       overflow: hidden;
       border: 1px dashed #d1d5db;
@@ -648,49 +624,15 @@
     }
 
     .dashboard-grid {
-      margin-top: 1.6rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 1.2rem;
-    }
-
-    @media (max-width: 880px) {
-      .dashboard-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      display: none;
     }
 
     .dashboard-info {
-      background: #ffffff;
-      border-radius: var(--radius-md);
-      padding: 1rem 1rem 1.1rem;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      display: none;
     }
 
-    .dashboard-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-
-    .dashboard-text {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .dashboard-list {
-      margin-top: 0.7rem;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      list-style: disc;
-      padding-left: 1.2rem;
-    }
-
-    .dashboard-note {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 0.6rem;
+    .dashboard-placeholder {
+      display: none;
     }
 
     .pill {
@@ -718,6 +660,7 @@
       align-items: center;
       gap: 0.7rem;
       font-size: 0.9rem;
+      margin-left: auto;
     }
 
     .welcome-link {
@@ -814,6 +757,67 @@
       cursor: pointer;
       font-size: 0.85rem;
     }
+
+    /* ---------- BREVET BLANC PAGES ---------- */
+    .bb-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+      margin-top: 1.2rem;
+    }
+
+    @media (max-width: 780px) {
+      .bb-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .bb-card {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .bb-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .bb-card-tag {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .bb-card-link {
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .bb-section {
+      margin-top: 0.8rem;
+    }
+
+    .bb-section-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .bb-section-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
   </style>
 </head>
 <body>
@@ -827,12 +831,12 @@
         <div class="nav-links" id="navLinks">
           <a href="#accueil" data-page="accueil" class="active-link">Accueil</a>
           <a href="#ressources" data-page="ressources">Ressources (Fiches)</a>
-          <a href="#outils" data-page="outils">Outils & Méthodes</a>
+          <a href="#brevet-blanc" data-page="brevet-blanc">Brevet Blanc</a>
+          <a href="#outils" data-page="outils">Outils</a>
           <a href="#agenda" data-page="agenda">Agenda & Suivi</a>
         </div>
       </nav>
 
-      <!-- Welcome bar added inside header -->
       <div id="welcome-bar" class="welcome-bar" aria-live="polite">
         <span id="welcome-message"></span>
         <button id="change-name-btn" type="button" class="welcome-link">
@@ -842,7 +846,6 @@
     </div>
   </header>
 
-  <!-- Name gate overlay (full-page, progressively enhanced) -->
   <div
     id="name-gate"
     class="name-gate name-gate--hidden"
@@ -851,7 +854,6 @@
     aria-labelledby="name-gate-title"
   >
     <div class="name-gate__backdrop"></div>
-
     <div class="name-gate__content" role="document">
       <h2 id="name-gate-title">Welcome to Master 3ème</h2>
       <p id="name-gate-desc">
@@ -894,7 +896,6 @@
     </div>
   </div>
 
-  <!-- No-JS fallback: simple page-level form on /name route (server renders this). -->
   <noscript>
     <main>
       <h1>Welcome</h1>
@@ -974,9 +975,9 @@
         <article class="feature-card">
           <div>
             <div class="feature-icon">🧰</div>
-            <h3 class="feature-title">Outils & Méthodes</h3>
+            <h3 class="feature-title">Outils</h3>
             <p class="feature-text">
-              Utilise les calculateurs de points, moyenne générale et des fiches méthode pour les épreuves écrites.
+              Utilise les calculateurs de points et de moyenne générale pour suivre ton niveau.
             </p>
           </div>
           <a href="#outils" data-link="outils" class="feature-link">
@@ -989,11 +990,24 @@
             <div class="feature-icon">🗓️</div>
             <h3 class="feature-title">Agenda & Suivi</h3>
             <p class="feature-text">
-              Organise tes semaines, note tes contrôles et suis ta progression avec un dashboard simple.
+              Organise tes semaines, note tes contrôles et visualise ton planning.
             </p>
           </div>
           <a href="#agenda" data-link="agenda" class="feature-link">
             Voir l'agenda <span>→</span>
+          </a>
+        </article>
+
+        <article class="feature-card">
+          <div>
+            <div class="feature-icon">🧪</div>
+            <h3 class="feature-title">Brevet Blanc</h3>
+            <p class="feature-text">
+              Retrouve des sujets complets de Brevet blanc et leurs corrections pour t’entraîner.
+            </p>
+          </div>
+          <a href="#brevet-blanc" data-link="brevet-blanc" class="feature-link">
+            Accéder aux Brevets blancs <span>→</span>
           </a>
         </article>
       </div>
@@ -1097,10 +1111,7 @@
       </div>
     </section>
 
-    <!-- SOUS-PAGES: mêmes que dans ton fichier (Maths, Français, etc.) -->
-    <!-- Pour gagner de la place ici, je garde l’exemple Maths, à dupliquer
-         avec le même contenu que ton fichier pour les autres matières. -->
-
+    <!-- RESSOURCES : MATHS -->
     <section id="ressources-maths" class="page">
       <div class="subject-page">
         <div class="subject-page-header">
@@ -1115,7 +1126,6 @@
         </p>
 
         <div class="resource-grid">
-          <!-- 8 catégories comme dans ton code existant -->
           <details>
             <summary><span class="summary-prefix">📑</span>Fiches de Révision & Leçons</summary>
             <div>
@@ -1127,20 +1137,924 @@
               </div>
             </div>
           </details>
-          <!-- ... (reprends ici exactement les autres <details> de ton fichier) -->
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes Mentales</summary>
+            <div>
+              <p>Cartes mentales pour retenir formules et propriétés.</p>
+              <div class="resource-links">
+                <a href="#" class="resource-link"><span class="resource-pill">Mindmap</span>Théorème de Pythagore</a>
+                <a href="#" class="resource-link"><span class="resource-pill">Mindmap</span>Fonctions & graphiques</a>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Révise sous forme de cartes question / réponse.</p>
+              <div class="resource-links">
+                <a href="#" class="resource-link"><span class="resource-pill">Quizlet</span>Calcul littéral</a>
+                <a href="#" class="resource-link"><span class="resource-pill">Flashcards</span>Vocabulaire mathématique</a>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz chronométrés pour t’entraîner comme au Brevet.</p>
+              <div class="resource-links">
+                <a href="#" class="resource-link"><span class="resource-pill">Quiz</span>Fractions & pourcentages</a>
+                <a href="#" class="resource-link"><span class="resource-pill">Quiz</span>Statistiques</a>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos d’explication et corrections guidées d’exercices types.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales (chapitres)</summary>
+            <div>
+              <p>Organisation visuelle du programme de Mathématiques de 3ᵉ.</p>
+            </div>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- Idem pour: #ressources-francais, #ressources-histoire, #ressources-geographie,
-         #ressources-emc, #ressources-physique, #ressources-svt, #ressources-dnl
-         avec le contenu déjà présent dans ton fichier. -->
+    <!-- RESSOURCES : FRANCAIS -->
+    <section id="ressources-francais" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Français</h2>
+          </div>
+          <span class="pill">Brevet · Français</span>
+        </div>
+        <p class="subject-page-tagline">
+          Fiches, leçons et entraînements pour la langue, la compréhension et la rédaction au Brevet.
+        </p>
 
-    <!-- OUTILS & MÉTHODES -->
-    <section id="outils" class="page">
-      <h2 class="section-title">Outils & Méthodes</h2>
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches pour revoir grammaire, conjugaison et analyse de texte.</p>
+              <div class="resource-links">
+                <a href="#" class="resource-link"><span class="resource-pill">Fiche</span>Classes grammaticales</a>
+                <a href="#" class="resource-link"><span class="resource-pill">Fiche</span>Figures de style</a>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Cours complets sur la rédaction, l’argumentation et la lecture analytique.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes pour mémoriser vocabulaire, conjugaisons et notions de langue.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz pour t’entraîner sur l’orthographe, la conjugaison et la compréhension.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos expliquant la méthode pour réussir la rédaction et la compréhension.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales sur les genres littéraires, les types de textes et les temps de la narration.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : HISTOIRE -->
+    <section id="ressources-histoire" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Histoire</h2>
+          </div>
+          <span class="pill">Brevet · Histoire</span>
+        </div>
+        <p class="subject-page-tagline">
+          Repères, thèmes majeurs et entraînements pour les épreuves d’Histoire au Brevet.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches sur les grandes périodes et événements du programme.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Leçons complètes pour approfondir chaque thème historique important.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes pour mémoriser dates, personnages et notions clés.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz pour vérifier tes repères et tes connaissances historiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos sur les grandes périodes et les événements clés.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales pour organiser les périodes, les causes et les conséquences.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : GEOGRAPHIE -->
+    <section id="ressources-geographie" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Géographie</h2>
+          </div>
+          <span class="pill">Brevet · Géographie</span>
+        </div>
+        <p class="subject-page-tagline">
+          Cartes, schémas et notions pour réussir les épreuves de Géographie.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches sur les espaces, les territoires et les enjeux géographiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Leçons complètes sur les études de cas et les thèmes du programme.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes pour mémoriser vocabulaire et repères géographiques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz sur les cartes, les paysages et les grands repères.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos explicatives sur les différents espaces étudiés.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales pour relier les notions de développement, d’urbanisation et de mondialisation.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : EMC -->
+    <section id="ressources-emc" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">EMC</h2>
+          </div>
+          <span class="pill">Brevet · EMC</span>
+        </div>
+        <p class="subject-page-tagline">
+          Valeurs, droits, devoirs et citoyenneté : toutes les ressources pour l’EMC.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches sur les valeurs de la République, les droits et les libertés.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Leçons sur les institutions et la vie démocratique.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes pour mémoriser vocabulaire et notions d’EMC.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz pour vérifier ta compréhension des règles et des principes.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos expliquant les institutions et la citoyenneté.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales organisant les notions de valeurs, droits et devoirs.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : PHYSIQUE-CHIMIE -->
+    <section id="ressources-physique" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Physique - Chimie</h2>
+          </div>
+          <span class="pill">Brevet · Physique-Chimie</span>
+        </div>
+        <p class="subject-page-tagline">
+          Lois, modèles et expériences pour l’épreuve de Physique-Chimie.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches sur l’électricité, l’énergie, la matière et les transformations.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Cours complets avec exemples et expériences.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes pour mémoriser symboles, unités et formules.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz pour t’entraîner avant les évaluations.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos d’expériences et de correction d’exercices.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales reliant phénomènes, lois et grandeurs physiques.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : SVT -->
+    <section id="ressources-svt" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">Sciences de la Vie & de la Terre</h2>
+          </div>
+          <span class="pill">Brevet · SVT</span>
+        </div>
+        <p class="subject-page-tagline">
+          Corps humain, planète et environnement : toutes les ressources pour la SVT.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches sur l’organisation du vivant, la reproduction, la santé et les risques.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Leçons complètes avec schémas et expériences.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes pour mémoriser vocabulaire scientifique et définitions.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz sur les grands thèmes de SVT.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos expliquant les chapitres clés de SVT.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales reliant notions, expériences et vocabulaire.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESSOURCES : DNL ANGLAIS -->
+    <section id="ressources-dnl" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="ressources">← Retour aux matières</span>
+            <h2 class="subject-page-title">DNL Anglais (Mme Houdant)</h2>
+          </div>
+          <span class="pill">DNL · Anglais</span>
+        </div>
+        <p class="subject-page-tagline">
+          Ressources bilingues pour travailler les notions scientifiques en anglais.
+        </p>
+
+        <div class="resource-grid">
+          <details>
+            <summary><span class="summary-prefix">📑</span>Fiches de révision</summary>
+            <div>
+              <p>Fiches de vocabulaire scientifique anglais/français.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+            <div>
+              <p>Leçons sur les notions scientifiques abordées en DNL.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🗂️</span>Quizlets / Flashcards</summary>
+            <div>
+              <p>Cartes bilingues pour mémoriser le lexique spécialisé.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">❓</span>Quiz interactifs</summary>
+            <div>
+              <p>Quiz en anglais sur le vocabulaire et les notions vues en DNL.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🎥</span>Vidéos</summary>
+            <div>
+              <p>Vidéos en anglais expliquant des notions scientifiques simples.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+            <div>
+              <p>Cartes mentales bilingues reliant vocabulaire et concepts.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC INDEX -->
+    <section id="brevet-blanc" class="page">
+      <h2 class="section-title">Brevet Blanc</h2>
       <p class="section-subtitle">
-        Prépare-toi efficacement grâce aux calculateurs de points, aux outils de moyenne générale et aux fiches méthode DNB.
+        Prépare-toi spécifiquement pour les Brevets blancs : ressources ciblées, sujets d’entraînement et corrections détaillées pour chaque épreuve.
+      </p>
+
+      <div class="bb-grid">
+        <article class="bb-card">
+          <h3 class="bb-card-title">Français</h3>
+          <p class="bb-card-tag">Compréhension · Dictée · Rédaction</p>
+          <p class="subject-desc">
+            Entraîne-toi sur des sujets complets de Brevet blanc en Français, avec ressources et corrections.
+          </p>
+          <a href="#bb-francais" data-link="bb-francais" class="bb-card-link">
+            Ouvrir la page Français (Brevet blanc) →
+          </a>
+        </article>
+
+        <article class="bb-card">
+          <h3 class="bb-card-title">Mathématiques</h3>
+          <p class="bb-card-tag">Problèmes · QCM · Calculs</p>
+          <p class="subject-desc">
+            Sujets de Brevet blanc en Mathématiques, corrigés et fiches ciblées pour chaque notion.
+          </p>
+          <a href="#bb-maths" data-link="bb-maths" class="bb-card-link">
+            Ouvrir la page Mathématiques (Brevet blanc) →
+          </a>
+        </article>
+
+        <article class="bb-card">
+          <h3 class="bb-card-title">Histoire-Géographie / EMC</h3>
+          <p class="bb-card-tag">Étude de docs · Rédaction</p>
+          <p class="subject-desc">
+            Entraînements complets sur les épreuves d’Histoire-Géographie et EMC du Brevet blanc.
+          </p>
+          <a href="#bb-histgeo-emc" data-link="bb-histgeo-emc" class="bb-card-link">
+            Ouvrir la page Histoire-Géo / EMC (Brevet blanc) →
+          </a>
+        </article>
+
+        <article class="bb-card">
+          <h3 class="bb-card-title">Sciences</h3>
+          <p class="bb-card-tag">SVT · Physique-Chimie · Techno</p>
+          <p class="subject-desc">
+            Ressources et sujets d’entraînement en Sciences pour l’épreuve de Brevet blanc.
+          </p>
+          <a href="#bb-sciences" data-link="bb-sciences" class="bb-card-link">
+            Ouvrir la page Sciences (Brevet blanc) →
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC : FRANCAIS -->
+    <section id="bb-francais" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+            <h2 class="subject-page-title">Brevet Blanc – Français</h2>
+          </div>
+          <span class="pill">Français · Brevet blanc</span>
+        </div>
+        <p class="subject-page-tagline">
+          Prépare les épreuves de compréhension, dictée et rédaction avec des ressources ciblées et des sujets complets de Brevet blanc.
+        </p>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Ressources</h3>
+          <p class="bb-section-subtitle">
+            Utilise ces ressources pour maîtriser méthodologie et notions avant de passer aux sujets d’entraînement.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+              <div>
+                <p>Rappels rapides sur les points essentiels de l’épreuve (lecture, langue, rédaction).</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+              <div>
+                <p>Cours complets pour revoir la rédaction, l’argumentation et la lecture analytique.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🎥</span>Videos</summary>
+              <div>
+                <p>Vidéos expliquant la méthode pour la compréhension et la rédaction, avec exemples commentés.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+              <div>
+                <p>Flashcards pour réviser vocabulaire, figures de style et notions de grammaire.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+              <div>
+                <p>Quiz chronométrés pour t’entraîner sur la langue et la compréhension comme au Brevet.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+              <div>
+                <p>Cartes mentales pour visualiser les étapes de la rédaction et les types de questions de l’épreuve.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
+          <p class="bb-section-subtitle">
+            Entraîne-toi avec des sujets complets de Brevet blanc en Français.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
+              <div>
+                <p>Des sujets au format officiel avec texte, questions, dictée et rédaction.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
+          <p class="bb-section-subtitle">
+            Vérifie tes réponses et comprends les attentes du correcteur.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
+              <div>
+                <p>Corrigés expliqués pour chaque partie : compréhension, réécriture, dictée et rédaction.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC : MATHS -->
+    <section id="bb-maths" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+            <h2 class="subject-page-title">Brevet Blanc – Mathématiques</h2>
+          </div>
+          <span class="pill">Mathématiques · Brevet blanc</span>
+        </div>
+        <p class="subject-page-tagline">
+          Entraîne-toi sur des sujets complets de Mathématiques, avec fiches, exercices ciblés et corrections détaillées.
+        </p>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Ressources</h3>
+          <p class="bb-section-subtitle">
+            Révise les notions clés que l’on retrouve dans les sujets de Brevet blanc.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+              <div>
+                <p>Rappels rapides sur les chapitres fréquents en Brevet blanc (fonctions, statistiques, géométrie, etc.).</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+              <div>
+                <p>Cours complets avec exemples pour revoir les techniques utilisées dans les sujets.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🎥</span>Videos</summary>
+              <div>
+                <p>Vidéos d’explications et de corrections de sujets de Brevet blanc en Mathématiques.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+              <div>
+                <p>Flashcards pour mémoriser formules, définitions et méthodes de résolution.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+              <div>
+                <p>Quiz rapides sur calcul littéral, équations, proportionnalité, probabilités, etc.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+              <div>
+                <p>Cartes mentales des grandes notions : fonctions, probabilités, géométrie.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
+          <p class="bb-section-subtitle">
+            Sujets complets de Mathématiques au format Brevet.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
+              <div>
+                <p>Problèmes, QCM et exercices de raisonnement au format officiel.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
+          <p class="bb-section-subtitle">
+            Corrigés commentés pour comprendre chaque étape de la solution.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
+              <div>
+                <p>Corrigés structurés, avec rappel de la méthode utilisée dans chaque exercice.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC : HISTOIRE-GÉO / EMC -->
+    <section id="bb-histgeo-emc" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+            <h2 class="subject-page-title">Brevet Blanc – Histoire-Géographie / EMC</h2>
+          </div>
+          <span class="pill">Histoire-Géo / EMC · Brevet blanc</span>
+        </div>
+        <p class="subject-page-tagline">
+          Travaille sur des sujets d’Histoire-Géographie et EMC complets, avec ressources et corrigés pour l’épreuve de Brevet blanc.
+        </p>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Ressources</h3>
+          <p class="bb-section-subtitle">
+            Revois les repères, les notions de programme et la méthode pour l’étude de documents et les rédactions.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+              <div>
+                <p>Fiches sur les repères historiques, les grandes périodes, les études de cas et les notions d’EMC.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+              <div>
+                <p>Leçons complètes sur les thèmes majeurs du programme d’Histoire-Géographie et d’EMC.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🎥</span>Videos</summary>
+              <div>
+                <p>Vidéos explicatives sur les chapitres clés et la méthode de la rédaction en Histoire-Géo/EMC.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+              <div>
+                <p>Flashcards pour revoir dates, lieux, personnages, concepts d’EMC et vocabulaire géographique.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+              <div>
+                <p>Quiz pour vérifier tes repères historiques et géographiques, ainsi que les notions d’EMC.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+              <div>
+                <p>Cartes mentales pour organiser les grandes périodes, les thèmes et les notions de citoyenneté.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
+          <p class="bb-section-subtitle">
+            Sujets complets avec étude de documents, croquis et questions d’EMC.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
+              <div>
+                <p>Sujets avec documents, questions et développement construit.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
+          <p class="bb-section-subtitle">
+            Corrigés commentés, exemples de développements construits et réponses attendues.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
+              <div>
+                <p>Corrigés pour l’étude de documents, le croquis et l’EMC.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BREVET BLANC : SCIENCES -->
+    <section id="bb-sciences" class="page">
+      <div class="subject-page">
+        <div class="subject-page-header">
+          <div>
+            <span class="subject-back" data-link="brevet-blanc">← Retour à Brevet Blanc</span>
+            <h2 class="subject-page-title">Brevet Blanc – Sciences</h2>
+          </div>
+          <span class="pill">Sciences · Brevet blanc</span>
+        </div>
+        <p class="subject-page-tagline">
+          Prépare l’épreuve de Sciences (SVT, Physique-Chimie, Technologie) avec des ressources ciblées et des sujets de Brevet blanc.
+        </p>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Ressources</h3>
+          <p class="bb-section-subtitle">
+            Revois les notions scientifiques qui reviennent le plus souvent dans les sujets de Brevet blanc.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📑</span>Fiche de révision</summary>
+              <div>
+                <p>Fiches synthétiques couvrant SVT, Physique-Chimie et Technologie.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">📚</span>Leçons détaillées</summary>
+              <div>
+                <p>Cours plus complets avec expériences, schémas et démarches scientifiques.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🎥</span>Videos</summary>
+              <div>
+                <p>Vidéos d’expériences, d’explications de sujets et de corrections guidées.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🗂️</span>Flashcards ( Quizlet )</summary>
+              <div>
+                <p>Flashcards pour mémoriser vocabulaire scientifique, unités, symboles et définitions.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">❓</span>Quizs interactifs</summary>
+              <div>
+                <p>Quiz pour tester tes connaissances en SVT, Physique-Chimie et Technologie avant l’épreuve.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary><span class="summary-prefix">🧠</span>Cartes mentales</summary>
+              <div>
+                <p>Cartes mentales reliant expériences, notions et vocabulaire dans les trois disciplines.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Examens d’entraînement type Brevet blanc</h3>
+          <p class="bb-section-subtitle">
+            Sujets de Sciences complets avec documents et questions.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">📝</span>Sujets complets</summary>
+              <div>
+                <p>Sujets mêlant SVT, Physique-Chimie et Technologie.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="bb-section">
+          <h3 class="bb-section-title">Corrections des examens d’entraînement</h3>
+          <p class="bb-section-subtitle">
+            Corrigés détaillés pour chaque partie : SVT, Physique-Chimie, Technologie.
+          </p>
+          <div class="resource-grid">
+            <details>
+              <summary><span class="summary-prefix">✅</span>Corrections détaillées</summary>
+              <div>
+                <p>Explications des démarches scientifiques attendues au Brevet.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTILS -->
+    <section id="outils" class="page">
+      <h2 class="section-title">Outils</h2>
+      <p class="section-subtitle">
+        Utilise ces outils pour simuler tes points au Brevet et suivre ta moyenne générale.
       </p>
 
       <div class="tools-grid">
@@ -1189,27 +2103,6 @@
             Colle ici l’URL d’intégration de ton tableau de suivi des moyennes (Google Sheets ou autre outil).
           </p>
         </article>
-
-        <article class="tool-card">
-          <div>
-            <h3 class="tool-title">
-              🧠 Fiches méthode DNB
-              <span class="tool-badge">Étapes clés</span>
-            </h3>
-            <p class="tool-text">
-              Utilise ces fiches pour apprendre à répondre exactement comme attendu le jour du Brevet.
-            </p>
-          </div>
-          <div class="method-buttons">
-            <button class="method-btn">✍️ Rédaction (Français)<span>Ouvrir</span></button>
-            <button class="method-btn">🔍 Analyse de documents<span>Ouvrir</span></button>
-            <button class="method-btn">🧪 Démarche scientifique<span>Ouvrir</span></button>
-            <button class="method-btn">🧮 Résolution de problèmes<span>Ouvrir</span></button>
-          </div>
-          <p class="tool-note">
-            Chaque bouton peut pointer vers une fiche PDF, une page Notion, ou un diaporama de méthode.
-          </p>
-        </article>
       </div>
     </section>
 
@@ -1217,7 +2110,7 @@
     <section id="agenda" class="page">
       <h2 class="section-title">Agenda & Suivi</h2>
       <p class="section-subtitle">
-        Organise ton année avec un calendrier clair et un tableau de bord pour suivre tes progrès vers le Brevet.
+        Organise ton année avec un calendrier clair pour tes contrôles, oraux blancs et périodes de révision.
       </p>
 
       <div class="calendar-block">
@@ -1239,31 +2132,6 @@
           ></iframe>
         </div>
       </div>
-
-      <div class="dashboard-grid">
-        <div class="dashboard-info">
-          <h3 class="dashboard-title">Dashboard de Réussite</h3>
-          <p class="dashboard-text">
-            Utilisez cet outil pour enregistrer vos progrès et visualiser votre amélioration au fil des semaines.
-          </p>
-          <ul class="dashboard-list">
-            <li>Note tes moyennes par matière à chaque trimestre.</li>
-            <li>Indique les dates de révisions effectuées et les chapitres travaillés.</li>
-            <li>Observe si tu respectes ton objectif de séances de révision hebdomadaires.</li>
-          </ul>
-          <p class="dashboard-note">
-            L’objectif est de rendre ta progression visible pour rester motivé jusqu’au jour J.
-          </p>
-        </div>
-        <div class="dashboard-placeholder">
-          <iframe
-            title="Formulaire de suivi de progression"
-            width="100%"
-            height="400"
-            src="[Placeholder URL d'intégration ici]"
-          ></iframe>
-        </div>
-      </div>
     </section>
   </main>
 
@@ -1272,7 +2140,7 @@
   </footer>
 
   <script>
-    // ---------- Navigation / pages (identique à avant) ----------
+    // ---------- NAVIGATION / PAGES ----------
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     const linkItems = navLinks.querySelectorAll('a');
@@ -1286,7 +2154,9 @@
         const page = link.dataset.page;
         link.classList.toggle(
           'active-link',
-          page === id || (id.startsWith('ressources-') && page === 'ressources')
+          page === id ||
+            (id.startsWith('ressources-') && page === 'ressources') ||
+            (id.startsWith('bb-') && page === 'brevet-blanc')
         );
       });
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -1336,7 +2206,7 @@
       });
     });
 
-    // ---------- Name gate logic (client-only) ----------
+    // ---------- NAME GATE ----------
     const NAME_KEY = 'visitorName';
     const NAME_META_KEY = 'visitorNameMeta';
     const NAME_COOKIE = 'visitorName';
@@ -1421,7 +2291,7 @@
               name = null;
             }
           } catch {
-            // ignore broken meta
+            // ignore
           }
         }
       } else {
@@ -1568,3 +2438,4 @@
   </script>
 </body>
 </html>
+
